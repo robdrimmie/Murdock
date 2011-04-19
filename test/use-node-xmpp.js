@@ -32,6 +32,7 @@ exports.testOnline = function(test) {
       console.log( "HELLO" );
       success = true;
       test.ok( success, "Authorized and online." );
+      test.done();
     }
   );
 
@@ -39,8 +40,9 @@ exports.testOnline = function(test) {
     'error',
     function(e) {
       console.log(e);
+      test.ok( success, "Authorized and online." );
+      test.done();
     }
   );
 
-  test.done();
 };
