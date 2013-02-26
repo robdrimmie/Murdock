@@ -5,6 +5,13 @@ plugins/acts as an interface to many "mini" applications.
 
 It is the "dock" for "Murdules", which is a fucking shameworthy pun.
 
+== Setup ==
+
+1) install node-xmpp https://github.com/astro/node-xmpp
+2) run play.js
+
+Marvel at the super trivial state.
+
 == Status ==
 
 Notional!
