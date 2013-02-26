@@ -1,10 +1,12 @@
 = Murdock =
+
 An XMPP client written in nodejs. Provides message routing for
 plugins/acts as an interface to many "mini" applications.
 
 It is the "dock" for "Murdules", which is a fucking shameworthy pun.
 
 == Status ==
+
 Notional!
 
 == The Name ==
