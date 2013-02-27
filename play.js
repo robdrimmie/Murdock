@@ -1,26 +1,41 @@
 var sys = require( 'sys' );
 var xmpp = require( 'node-xmpp' );
 
-var success = false,
-      jid = "robtestone@gmail.com",
-      pwd = "robtest1";
+var argv = process.argv;
 
-var cl = new xmpp.Client({
-  jid: jid,
-  password: pwd }
-);
+if (argv.length != 4) {
+    console.error('Usage: node echo_bot.js <my-jid> <my-password>');
+    process.exit(1);
+}
 
-cl.on(
-  'online',
+var cl = new xmpp.Client({ jid: argv[2],
+         password: argv[3] });
+
+cl.on('online', 
   function() {
-    console.log( "HELLO" );
-    success = true;
-  }
-);
+    cl.send(  new xmpp.Element('presence', { }).
+      c('show').t('chat').up().
+      c('status').t('Happily echoing your <message/> stanzas')
+    );
 
-cl.on(
-  'error',
+    console.log( "echoing" );
+  });
+
+cl.on('stanza',
+  function(stanza) {
+    // Important: never reply to errors!
+    if (stanza.is('message') && stanza.attrs.type !== 'error') {
+      // Swap addresses...
+      stanza.attrs.to = stanza.attrs.from;
+      delete stanza.attrs.from;
+      console.log( stanza );
+      // and send back.
+      cl.send(stanza);
+      console.log( "sent" );
+    }
+  });
+
+cl.on('error',
   function(e) {
-    console.log(e);
-  }
-);
+    console.error(e);
+  });
