@@ -1,5 +1,7 @@
 var sys = require( 'sys' );
 var xmpp = require( 'node-xmpp' );
+var sax = require( 'sax' ),
+    parser = sax.parser(true); // use strict
 
 var argv = process.argv;
 
@@ -28,7 +30,14 @@ cl.on('stanza',
       // Swap addresses...
       stanza.attrs.to = stanza.attrs.from;
       delete stanza.attrs.from;
+
       console.log( stanza );
+      stanza.children.forEach( function( element, index, array ) {
+        console.log(element);
+        console.log(index);
+        console.log(array);
+      });
+      
       // and send back.
       cl.send(stanza);
       console.log( "sent" );
