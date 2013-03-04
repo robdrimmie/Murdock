@@ -1,7 +1,8 @@
 var sys = require( 'sys' );
 var xmpp = require( 'node-xmpp' );
-var sax = require( 'sax' ),
-    parser = sax.parser(true); // use strict
+var util = require( 'util' );
+//var xml2js = require( 'xml2js' ),
+//    parser = xml2js.Parser();
 
 var argv = process.argv;
 
@@ -26,17 +27,12 @@ cl.on('online',
 cl.on('stanza',
   function(stanza) {
     // Important: never reply to errors!
+
+    console.log(util.inspect(stanza, false, null))
     if (stanza.is('message') && stanza.attrs.type !== 'error') {
       // Swap addresses...
       stanza.attrs.to = stanza.attrs.from;
       delete stanza.attrs.from;
-
-      console.log( stanza );
-      stanza.children.forEach( function( element, index, array ) {
-        console.log(element);
-        console.log(index);
-        console.log(array);
-      });
       
       // and send back.
       cl.send(stanza);
