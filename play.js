@@ -28,8 +28,17 @@ cl.on('stanza',
   function(stanza) {
     // Important: never reply to errors!
 
-    console.log(util.inspect(stanza, false, null))
+    
     if (stanza.is('message') && stanza.attrs.type !== 'error') {
+      console.log(util.inspect(stanza.attrs, false, null))
+      console.log(stanza);
+      stanza.children.forEach( function findBody( element, index, array ) {
+        if( element.name === 'body') {
+          console.log( element );
+          console.log( element.children[0]);
+        }
+      });
+
       // Swap addresses...
       stanza.attrs.to = stanza.attrs.from;
       delete stanza.attrs.from;
