@@ -30,14 +30,24 @@ cl.on('stanza',
 
     
     if (stanza.is('message') && stanza.attrs.type !== 'error') {
-      console.log(util.inspect(stanza.attrs, false, null))
-      console.log(stanza);
-      stanza.children.forEach( function findBody( element, index, array ) {
-        if( element.name === 'body') {
-          console.log( element );
-          console.log( element.children[0]);
+ //     console.log(util.inspect(stanza.attrs, false, null))
+//      console.log(stanza);
+      
+      // find the text of the message
+      var numKids = stanza.children.length;
+      var idxKid = 0;
+      var messageText = 'message text not found';
+
+      while( idxKid < numKids ) {
+        if( stanza.children[idxKid].name === 'body') {
+          messageText = stanza.children[idxKid].children[0];
+          idxKid = numKids + 1;
         }
-      });
+
+        idxKid++;
+      };
+
+      console.log( messageText );
 
       // Swap addresses...
       stanza.attrs.to = stanza.attrs.from;
