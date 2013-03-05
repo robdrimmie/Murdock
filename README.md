@@ -51,12 +51,12 @@ contact list which. I guess there should probably be some kind of
 administration Murdule that deals with XMPP behaviour, there's no reason
 for those sorts of messages to live outside a plugin. Probably?
 
-Then it just needs to echo messages back. That is like, version 0.1:
+Then it just needs to echo messages back but through a Murdule. That is like, version 0.1:
 
-* authenticates against server
-* router established
-* routes XMPP messages to XMPP Murdule
-* XMPP Murdule deals with roster stuff
-** automatically approves being added to roster
-** automatically adds same user to own roster
-* Echo Murdule echos any message sent.
+* use node-xmpp to handle most everything
+* get the content of the message
+* push the content out to the echo murdule
+* echo module just returns the content
+* primary app responds using node-xmpp stuff
+
+0.2 will be some kind of Murdule that pushes info into a db or something like that?
