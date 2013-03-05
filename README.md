@@ -38,6 +38,9 @@ All messages for the active "session" get routed to the correct Murdule.
 I want to do session-based routing so that I don't need to prefix every
 message with some kind of Murdule identifier.
 
+XMPP has a "thread" concept which may help. 
+See: http://xmpp.org/rfcs/rfc3921.html#stanzas-message-children-thread
+
 To achieve this, the first thing that happens is Murdule needs an
 account on a jabber server somewhere. I've got a few test gtalk accounts
 floating around somewhere I will use to start. It will register with the
