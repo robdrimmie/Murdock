@@ -57,11 +57,12 @@ Then it just needs to echo messages back but through a Murdule. That is like, ve
 * get the content of the message &#10003;
 * push the content out to the echo murdule &#10003;
 * echo module just returns the content &#10003;
-* primary app responds using node-xmpp stuff
+* primary app responds using node-xmpp stuff &#10003;
+* loads murdules from murdule.json
+* routing
 
 Future things: 
 
 * some kind of Murdule that pushes info into a db or something like that?
-* routing
 * session management/prediction
 * 
