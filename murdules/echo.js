@@ -10,7 +10,7 @@ _self = {
 		console.log( 'inside murdule' );
 		console.log( message );
 		console.log( 'leaving murdule' );
-		return message;
+		return 'echo says ' + message;
 	}
 }
 
