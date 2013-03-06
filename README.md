@@ -53,10 +53,15 @@ for those sorts of messages to live outside a plugin. Probably?
 
 Then it just needs to echo messages back but through a Murdule. That is like, version 0.1:
 
-* use node-xmpp to handle most everything
-* get the content of the message
-* push the content out to the echo murdule
-* echo module just returns the content
+* use node-xmpp to handle most everything &#10003;
+* get the content of the message &#10003;
+* push the content out to the echo murdule &#10003;
+* echo module just returns the content &#10003;
 * primary app responds using node-xmpp stuff
 
-0.2 will be some kind of Murdule that pushes info into a db or something like that?
+Future things: 
+
+* some kind of Murdule that pushes info into a db or something like that?
+* routing
+* session management/prediction
+* 
