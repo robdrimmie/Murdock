@@ -4,10 +4,13 @@ Cordova (https://github.com/apache/cordova-js)
 */
 
 var _self;
+var _xmpp;
+var _to;
+var _message;
 
-_delayedHandle = function( xmpp, to, message ) {
+_delayedHandle = function() {
 	console.log( 'inside handle' );
-	xmpp.send( to, 'delayedecho says ' + message );
+	_xmpp.send( _to, 'delayedecho says ' + _message );
 	console.log( 'leaving handle' );
 }
 
@@ -15,7 +18,10 @@ _self = {
 	name: "delayed echo",
 	handle: function( xmpp, to, message ) {
 		console.log( 'inside delayed' );		
-		setTimeout( _delayedHandle( xmpp, to, message), 5000 );
+		_xmpp = xmpp;
+		_to = to;
+		_message = message;
+		setTimeout( _delayedHandle, 5000 );
 		console.log( 'leaving delayed' );
 
 	}
