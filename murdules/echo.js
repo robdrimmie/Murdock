@@ -6,11 +6,14 @@ Cordova (https://github.com/apache/cordova-js)
 var _self;
 
 _self = {
-	handle: function( message ) {
-		console.log( 'inside murdule' );
-		console.log( message );
-		console.log( 'leaving murdule' );
-		return 'echo says ' + message;
+	name: "echo",
+
+	handle: function( xmpp, to, message ) {
+		console.log( 'inside echo' );
+
+		xmpp.send( to, 'echo says ' + message );
+
+		console.log( 'leaving echo' );
 	}
 }
 

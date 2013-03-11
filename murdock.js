@@ -28,19 +28,20 @@ fs.exists( murdulesFile, function murdulesFileExists( exists ) {
   if( exists ) {
     fs.readFile( murdulesFile, function loadMurdulesFiles( err, data ) {
       murdulesFiles = JSON.parse( data );
-
+    
       var thisMF;
       for( mfIdx = 0; mfIdx < murdulesFiles.length; mfIdx++ ) {
         thisMF = murdulesPath + murdulesFiles[mfIdx];
 
-        fs.exists( thisMF, function openMurduleFile( mfExists ) {
-          if( mfExists ) {
-            allMurdules.push( require(thisMF) );
-          } else {
-            console.error( 'thisMF does not exist: ' + thisMF );
-          }
-        });
+        mfExists = fs.existsSync( thisMF );
+        if( mfExists ) {
+          allMurdules.push( require(thisMF) );
+        } else {
+          console.error( 'thisMF does not exist: ' + thisMF );
+        }
       }
+
+      console.log( allMurdules );
     });
   } else {
     console.error( 'murdules.json does not exist' );
@@ -54,11 +55,13 @@ xmpp.on('online', function() {
 });
 
 xmpp.on('chat', function(from, message) {
-  // Important: never reply to errors!
+  var murduleCount = allMurdules.length;
+  var mrIdx, response;
 
-  response = murdule.handle(message);
-
-  xmpp.send( from, response );
+  for( mrIdx = 0; mrIdx < murduleCount; mrIdx++ ) {
+    thisMurdule = allMurdules[mrIdx];
+    response = thisMurdule.handle( xmpp, from, message );
+  }
 });
 
 xmpp.on('error', function(err) {
