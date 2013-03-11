@@ -1,11 +1,10 @@
-var sys = require( 'sys' );
-var xmpp = require( 'simple-xmpp' );
-var util = require( 'util' );
-var fs = require( 'fs' );
+var sys = require( 'sys' )
+  , xmpp = require( 'simple-xmpp' )
+  , fs = require( 'fs' )
 
-var allMurdules = Array();
+  , allMurdules = Array()
 
-var argv = process.argv;
+  , argv = process.argv;
 
 if (argv.length != 4) {
     console.error('Usage: node echo_bot.js <my-jid> <my-password>');
