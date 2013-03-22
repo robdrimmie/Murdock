@@ -1,10 +1,14 @@
-var sys = require( 'sys' )
-  , xmpp = require( 'simple-xmpp' )
-  , fs = require( 'fs' )
+var sys = require( 'sys' ),
+    xmpp = require( 'simple-xmpp' ),
+    fs = require( 'fs' ),
 
-  , allMurdules = Array()
+    murdulesList = Array(),
+    murdulesFile = './murdules.json',
+    murdulesPath = './murdules/',
+    murdulesFiles = [],
 
-  , argv = process.argv;
+    argv = process.argv
+    ;
 
 if (argv.length != 4) {
     console.error('Usage: node echo_bot.js <my-jid> <my-password>');
@@ -20,9 +24,7 @@ xmpp.connect({
 
 // open the murdules.json file, get the array of murdules, load them all
 // @todo genercise these file functions
-var murdulesFile = './murdules.json';
-var murdulesPath = './murdules/';
-var murdulesFiles = [];
+
 fs.exists( murdulesFile, function murdulesFileExists( exists ) {
   if( exists ) {
     fs.readFile( murdulesFile, function loadMurdulesFiles( err, data ) {
@@ -34,13 +36,13 @@ fs.exists( murdulesFile, function murdulesFileExists( exists ) {
 
         mfExists = fs.existsSync( thisMF );
         if( mfExists ) {
-          allMurdules.push( require(thisMF) );
+          murdulesList.push( require(thisMF) );
         } else {
           console.error( 'thisMF does not exist: ' + thisMF );
         }
       }
 
-      console.log( allMurdules );
+      console.log( murdulesList );
     });
   } else {
     console.error( 'murdules.json does not exist' );
@@ -54,11 +56,11 @@ xmpp.on('online', function() {
 });
 
 xmpp.on('chat', function(from, message) {
-  var murduleCount = allMurdules.length;
+  var murduleCount = murdulesList.length;
   var mrIdx, response;
 
   for( mrIdx = 0; mrIdx < murduleCount; mrIdx++ ) {
-    thisMurdule = allMurdules[mrIdx];
+    thisMurdule = murdlesList[mrIdx];
     response = thisMurdule.handle( xmpp, from, message );
   }
 });
